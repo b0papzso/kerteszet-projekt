@@ -8,7 +8,7 @@ import sqlite3 from "sqlite3"
 const db = new sqlite3.Database("./database.sqlite")
 
 const initializeDB = async () =>{
-    await dbRun("CREATE TABLE IF NOT EXISTS plants( id INTEGER PRIMARY KEY AUTOINCREMENT, name STRING, perennial BOOLEAN, category TEXT, price INTEGER")
+    await dbRun("CREATE TABLE IF NOT EXISTS plants( id INTEGER PRIMARY KEY AUTOINCREMENT, name STRING, perennial BOOLEAN, category TEXT, price INTEGER)")
     const plants = [
         {
             id:1,
@@ -42,7 +42,7 @@ const initializeDB = async () =>{
 
     for(const plant of plants)
     {
-        await dbRun("INSERT INTO plants(name, perennial, category, price)VALUES (?, ?, ?, ?)", [book.title, book.author, book.description, book.year]);
+        await dbRun("INSERT INTO plants(name, perennial, category, price)VALUES (?, ?, ?, ?)", [plant.name, plant.perennial, plant.category, plant.price]);
     }
 }
 

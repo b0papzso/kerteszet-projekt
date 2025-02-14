@@ -40,33 +40,28 @@ router.post("/", async(req,res,next) =>
     }
 })
 
-router.put("/:id", async(req,res,next)=>{
-    try{
-        const plant = await dbQuery("SELECT *FROM plants WHERE id = ?;", [req.params.id])
-        if(!plant)
-        {
-            return res.status(404).json({message: "Növény nem található!"})
-        }
-        await dbRun("UPDATE plants SET name = ?, perennial = ?, category = ?, price = ? WHERE id = ?;",
-            [req.body.name || plant.name, req.body.perennial || plant.perennial, req.body.category || plant.category, req.body.price || plant.price, req.params.id]   
-        )        
-        res.status(200).json({id:req.params.id, name: req.body.name, perennial: req.body.perennial || plant.name, price: req.body.price})
-    }
-    catch(error)
-    {
-        next(error)
-    }
-})
+router.put("/:id", async (req, res, next) => {
+    try {
+        const plant = await dbQuery("SELECT * FROM plants WHERE id = ?;", [req.params.id]);
+        if (!plant) return res.status(404).json({ message: "plant not found" });
 
-router.delete("/:id", async(req,res,next)=>{
-    try{
-        const plant = await dbQuery("SELECT * FROM plants WHERE id = ?;", [req.params.id])
-        if (!plant) return res.status(404).json({ message: "Növény nem található" });
+        await dbRun("UPDATE plants SET name = ?,perennial = ?, category = ?, price = ? WHERE id = ?;", 
+            [req.body.name, req.body.perennial || plant.name, plant.perennial, req.body.category || plant.category, req.params.id]);
+        res.status(200).json({ id: req.params.id, name: req.body.name, perennial: req.body.perennial || plant.name,  category: req.body.category || plant.price, });
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.delete("/:id", async (req, res, next) => {
+    try {
+        const plant = await dbQuery("SELECT * FROM plants WHERE id = ?;", [req.params.id]);
+        if (!plant) return res.status(404).json({ message: "Sikertelen!" });
+
         await dbRun("DELETE FROM plants WHERE id = ?;", [req.params.id]);
         res.sendStatus(204);
     } catch (err) {
         next(err);
     }
-})
-
+});
 export default router
