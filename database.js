@@ -9,7 +9,7 @@ const db = new sqlite3.Database("./database.sqlite")
 
 const initializeDB = async () =>{
     await dbRun("CREATE TABLE IF NOT EXISTS plants( id INTEGER PRIMARY KEY AUTOINCREMENT, name STRING, perennial BOOLEAN, category TEXT, price INTEGER)")
-    const plants = [
+    /*const plants = [
         {
             id:1,
             name:"Tulipán",
@@ -43,7 +43,7 @@ const initializeDB = async () =>{
     for(const plant of plants)
     {
         await dbRun("INSERT INTO plants(name, perennial, category, price)VALUES (?, ?, ?, ?)", [plant.name, plant.perennial, plant.category, plant.price]);
-    }
+    }*/
 }
 
 function dbQuery(sql, params = []) {
