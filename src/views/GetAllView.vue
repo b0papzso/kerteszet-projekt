@@ -13,7 +13,9 @@
             <tr><td>{{ plant.name }}</td>
             <td>{{ plant.perennial ? "Igen" : "Nem" }}</td>
             <td>{{ plant.category }}</td>
-            <td>{{ plant.price}}</td></tr>
+            <td>{{ plant.price}}</td>
+            <button class="btn btn-danger">Törlés</button>
+        </tr>
         </tbody>
     </table>
 </template>
