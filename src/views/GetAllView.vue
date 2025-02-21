@@ -1,5 +1,5 @@
 <template>
-    <h1>Növények kiírása</h1>
+    <h1>Növények</h1>
     <table class="table table-striped">
         <thead>
             <tr>
